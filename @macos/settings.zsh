@@ -26,19 +26,13 @@
   ###############################################################################
 
   # Set computer name, if possible (as done via System Settings -> Sharing)
-  if (( ${+COMPUTER_NAME} )); then
-    sudo scutil --set ComputerName $COMPUTER_NAME
-    sudo scutil --set HostName $COMPUTER_NAME
-    sudo scutil --set LocalHostName $COMPUTER_NAME
-    sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string $COMPUTER_NAME
-  fi
 
   # Set sidebar icon size to medium
   defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 2
 
   # Show scrollbars depending on the context
   # Possible values: `WhenScrolling`, `Automatic` and `Always`
-  defaults write NSGlobalDomain AppleShowScrollBars -string "Automatic"
+  defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
 
   # Increase the window resize speed for Cocoa applications
   # This will make them open quicker
@@ -46,9 +40,6 @@
 
   # Double-click to maximize windows
   defaults write NSGlobalDomain AppleActionOnDoubleClick -string "Maximize"
-
-  # Use dark mode by default
-  defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"
 
   # Use expanded save panel by default
   defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool "true"
@@ -61,6 +52,8 @@
   # Save to disk (not to iCloud) by default
   defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool "false"
 
+  defaults write NSGlobalDomain com.apple.keyboard.fnState -bool true
+
   # Automatically quit printer apps once the print jobs complete
   defaults write org.cups.PrintingPrefs "Quit When Finished" -bool "true"
 
@@ -70,12 +63,6 @@
   # Enable window-saving on quit system-wide
   defaults write -app "System Settings" NSQuitAlwaysKeepsWindows -bool "true"
 
-  # Disable window-saving on quit for QuickTime and Preview
-  defaults write -app "QuickTime Player" NSQuitAlwaysKeepsWindows -bool "false"
-  defaults write -app "Preview" NSQuitAlwaysKeepsWindows -bool "false"
-
-  # Auto-play videos when opened with QuickTime Player
-  defaults write -app "QuickTime Player" MGPlayMovieOnOpen -bool "true"
 
   # Disable automatic termination of inactive apps
   # Commented out for now to cope with older devices
@@ -101,7 +88,7 @@
   defaults write $HOME/Library/Preferences/ByHost/com.apple.controlcenter.plist "Display" -int 8
   defaults write $HOME/Library/Preferences/ByHost/com.apple.controlcenter.plist "NowPlaying" -int 8
   defaults write $HOME/Library/Preferences/ByHost/com.apple.controlcenter.plist "ScreenMirroring" -int 8
-  defaults write $HOME/Library/Preferences/ByHost/com.apple.controlcenter.plist "Sound" -int 8
+  # defaults write $HOME/Library/Preferences/ByHost/com.apple.controlcenter.plist "Sound" -int 8
 
   # Disable Notification Center and remove the menu bar icon
   # Commented out for Big Sur
@@ -122,138 +109,9 @@
   # Enable spellchecker auto language identification
   defaults write NSGlobalDomain NSSpellCheckerAutomaticallyIdentifiesLanguages -bool "true"
 
-  ##############################################################################
-  # Security                                                                   #
-  ##############################################################################
-  # Based on:
-  # https://github.com/drduh/macOS-Security-and-Privacy-Guide
-  # https://benchmarks.cisecurity.org/tools2/osx/CIS_Apple_OSX_10.12_Benchmark_v1.0.0.pdf
-
-  # Enable firewall. Possible values:
-  #   0 = off
-  #   1 = on for specific sevices
-  #   2 = on for essential services
-  # sudo defaults write /Library/Preferences/com.apple.alf globalstate -int 1
-
-  # Enable stealth mode
-  # Source: https://support.apple.com/kb/PH18642
-  # sudo defaults write /Library/Preferences/com.apple.alf stealthenabled -int 1
-
-  # Enable firewall logging
-  # sudo defaults write /Library/Preferences/com.apple.alf loggingenabled -int 1
-
-  # Do not automatically allow signed software to receive incoming connections
-  # sudo defaults write /Library/Preferences/com.apple.alf allowsignedenabled -bool "false"
-
-  # Log firewall events for 90 days
-  # sudo perl -p -i -e 's/rotate=seq compress file_max=5M all_max=50M/rotate=utc compress file_max=5M ttl=90/g' "/etc/asl.conf"
-  # sudo perl -p -i -e 's/appfirewall.log file_max=5M all_max=50M/appfirewall.log rotate=utc compress file_max=5M ttl=90/g' "/etc/asl.conf"
-
-  # Reload the firewall
-  # (uncomment if above is not commented out)
-  # launchctl unload /System/Library/LaunchAgents/com.apple.alf.useragent.plist
-  # sudo launchctl unload /System/Library/LaunchDaemons/com.apple.alf.agent.plist
-  # sudo launchctl load /System/Library/LaunchDaemons/com.apple.alf.agent.plist
-  # launchctl load /System/Library/LaunchAgents/com.apple.alf.useragent.plist
-
-  # Disable IR remote control
-  # sudo defaults write /Library/Preferences/com.apple.driver.AppleIRController DeviceEnabled -bool "false"
-
-  # Turn Bluetooth off completely
-  # sudo defaults write /Library/Preferences/com.apple.Bluetooth ControllerPowerState -int 0
-  # sudo launchctl unload /System/Library/LaunchDaemons/com.apple.blued.plist
-  # sudo launchctl load /System/Library/LaunchDaemons/com.apple.blued.plist
-
-  # Disable wifi captive portal
-  # sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.captive.control Active -bool "false"
-
-  # Disable remote apple events
-  # sudo systemsetup -setremoteappleevents off
-
-  # Disable remote login
-  # sudo systemsetup -setremotelogin off
-
-  # Disable wake-on modem
-  # sudo systemsetup -setwakeonmodem off
-  # sudo pmset -a ring 0
-
-  # Disable wake-on LAN
-  # sudo systemsetup -setwakeonnetworkaccess off
-  # sudo pmset -a womp 0
-
-  # Disable file-sharing via AFP or SMB
-  # sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.AppleFileServer.plist
-  # sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.smbd.plist
-
-  # Display login window as name and password
-  # sudo defaults write /Library/Preferences/com.apple.loginwindow SHOWFULLNAME -bool "true"
-
-  # Do not show password hints
-  # sudo defaults write /Library/Preferences/com.apple.loginwindow RetriesUntilHint -int 0
-
-  # Disable guest account login
-  # sudo defaults write /Library/Preferences/com.apple.loginwindow GuestEnabled -bool "false"
-
-  # Automatically lock the login keychain for inactivity after 6 hours
-  # security set-keychain-settings -t 21600 -l ~/Library/Keychains/login.keychain
-
-  # Destroy FileVault key when going into standby mode, forcing a re-auth.
-  # Source: https://web.archive.org/web/20160114141929/http://training.apple.com/pdf/WP_FileVault2.pdf
-  # sudo pmset destroyfvkeyonstandby 1
-
-  # Enable secure virtual memory
-  # sudo defaults write /Library/Preferences/com.apple.virtualMemory UseEncryptedSwap -bool "true"
-
-  # Disable Bonjour multicast advertisements
-  # sudo defaults write /Library/Preferences/com.apple.mDNSResponder.plist NoMulticastAdvertisements -bool "true"
-
-  # Disable the crash reporter
-  # Commented out for now to cope with devices on beta software
-  # defaults write com.apple.CrashReporter DialogType -string "none"
-
-  # Disable diagnostic reports
-  # Commented out for now to cope with devices on beta software
-  # sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.SubmitDiagInfo.plist
-
-  # Log authentication events for 90 days
-  # sudo perl -p -i -e 's/rotate=seq file_max=5M all_max=20M/rotate=utc file_max=5M ttl=90/g' "/etc/asl/com.apple.authd"
-
-  # Log installation events for a year
-  # sudo perl -p -i -e 's/format=bsd/format=bsd mode=0640 rotate=utc compress file_max=5M ttl=365/g' "/etc/asl/com.apple.install"
-
-  # Increase the retention time for system.log and secure.log
-  # sudo perl -p -i -e 's/\/var\/log\/wtmp.*$/\/var\/log\/wtmp   \t\t\t640\ \ 31\    *\t\@hh24\ \J/g' "/etc/newsyslog.conf"
-
-  # Keep a log of kernel events for 30 days
-  # sudo perl -p -i -e 's|flags:lo,aa|flags:lo,aa,ad,fd,fm,-all,^-fa,^-fc,^-cl|g' /private/etc/security/audit_control
-  # sudo perl -p -i -e 's|filesz:2M|filesz:10M|g' /private/etc/security/audit_control
-  # sudo perl -p -i -e 's|expire-after:10M|expire-after: 30d |g' /private/etc/security/audit_control
-
   # Disable the “Are you sure you want to open this application?” dialog
   defaults write com.apple.LaunchServices LSQuarantine -bool "false"
 
-  # Disable disk image verification
-  defaults write com.apple.frameworks.diskimages skip-verify -bool "true"
-  defaults write com.apple.frameworks.diskimages skip-verify-locked -bool "true"
-  defaults write com.apple.frameworks.diskimages skip-verify-remote -bool "true"
-
-  ###############################################################################
-  # Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
-  ###############################################################################
-
-  # Trackpad: enable tap to click for this user and for the login screen
-  defaults write com.apple.AppleMultitouchTrackpad Clicking -bool "true"
-  defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool "true"
-  defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
-  defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
-
-  # Trackpad: enable tap to right-click
-  defaults write com.apple.AppleMultitouchTrackpad TrackpadRightClick -bool "true"
-  defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool "true"
-  defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryClick -bool "true"
-
-  # Trackpad: enable force-click
-  defaults write com.apple.trackpad.forceClick -bool "true"
 
   # Improve sound quality for Bluetooth headphones/headsets
   defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
@@ -268,75 +126,8 @@
   # Follow the keyboard focus while zoomed in
   sudo defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool "true"
 
-  # Enable press-and-hold - this is useful for typing "accents"
-  defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool "true"
-
-  # Set language and text formats
-  defaults write NSGlobalDomain AppleLanguages -array "en-GB" "zh-Hant-HK" "sv-SE"
-  defaults write NSGlobalDomain AppleLocale -string "en_SE"
-  defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimeters"
-  defaults write NSGlobalDomain AppleTemperatureUnit -string "Celsius"
-  defaults write NSGlobalDomain AppleICUForce24HourTime -bool "true"
-  defaults write NSGlobalDomain AppleMetricUnits -bool "true"
-
-  # Set the timezone and sync automatically from network
-  # See `sudo systemsetup -listtimezones` for other values
-
-  # Settings for Hong Kong
-  # sudo systemsetup -settimezone "Asia/Hong_Kong" >/dev/null
-  # sudo systemsetup -setnetworktimeserver "time.asia.apple.com"
-
-  # Settings for Stockholm
-  sudo systemsetup -settimezone "Europe/Stockholm" >/dev/null
-  sudo systemsetup -setnetworktimeserver "time.euro.apple.com"
-  sudo systemsetup -setusingnetworktime on
-
-  ###############################################################################
-  # Energy saving                                                               #
-  ###############################################################################
-
-  # Enable lid wakeup
-  sudo pmset -a lidwake 1
-
-  # Restart automatically on power loss
-  sudo pmset -a autorestart 1
-
-  # Restart automatically if the computer freezes
-  sudo systemsetup -setrestartfreeze on
-
-  # Sleep the display after 15 minutes
-  sudo pmset -a displaysleep 15
-
-  # Disable machine sleep while charging
-  sudo pmset -c sleep 0
-
-  # Set machine sleep to 30 minutes on battery
-  sudo pmset -b sleep 30
-
-  # Set standby delay to 24 hours if battery is above 50%,
-  # and to 3 hours otherwise
-  sudo pmset -a highstandbythreshold 50
-  sudo pmset -a standbydelaylow 10800
-  sudo pmset -a standbydelayhigh 86400
-
-  # Never go into computer sleep mode
-  sudo systemsetup -setcomputersleep Never >/dev/null
-
-  # Hibernation mode
-  # 0: Disable hibernation (speeds up entering sleep mode)
-  # 3: Copy RAM to disk so the system state can still be restored in case of a power failure.
-  sudo pmset -a hibernatemode 3
-
-  ###############################################################################
-  # Screen                                                                      #
-  ###############################################################################
-
-  # Require password immediately after sleep or screen saver begins
-  defaults write com.apple.screensaver askForPassword -int 1
-  defaults write com.apple.screensaver askForPasswordDelay -int 0
-
   # Save screenshots to the desktop
-  defaults write com.apple.screencapture location -string "$HOME/Desktop"
+  defaults write com.apple.screencapture location -string "$HOME/Documents/screenshots"
 
   # Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
   defaults write com.apple.screencapture type -string "png"
@@ -472,8 +263,6 @@
   # Reset Launchpad, but keep the desktop wallpaper intact
   find "${HOME}/Library/Application Support/Dock" -name "*-*.db" -maxdepth 1 -delete
 
-  # Add Simulator to Launchpad
-  sudo ln -sf "/Applications/Xcode.app/Contents/Developer/Applications/Simulator.app" "/Applications/Simulator.app"
 
   # Wipe all (default) app icons from the Dock
   defaults write com.apple.dock persistent-apps -array
@@ -485,19 +274,18 @@
   for app (
     '/System/Applications/Launchpad.app'
     '/System/Applications/Music.app'
-    '/Applications/Firefox.app'
-    '/Applications/Mimestream.app'
-    '/Applications/Morgen.app'
-    '/Applications/Linear.app'
+    '/Applications/Brave Browser.app'
     '/Applications/Slack.app'
-    '/Applications/WezTerm.app'
+    '/Applications/iTerm.app'
+    '/Applications/Emacs.app'
+    '/Applications/Cursor.app'
     '/System/Applications/System Settings.app'
   ); do
     add_app_to_dock $app
   done
   unset app
 
-  for folder ($HOME/Downloads); do
+  for folder ($HOME/workspace $HOME/Downloads $HOME/Documents); do
     add_folder_to_dock $folder -a 2
   done
   unset folder
@@ -582,68 +370,7 @@
   # Disable inline attachments (just show the icons)
   defaults write -app "Mail" DisableInlineAttachmentViewing -bool "true"
 
-  ###############################################################################
-  # Terminal                                                                    #
-  ###############################################################################
 
-  # Use the Dracula theme by default in Terminal.app
-  osascript <<EOD
-tell application "Terminal"
-
-  local allOpenedWindows
-  local initialOpenedWindows
-  local windowID
-  set themeName to "Dracula"
-
-  (* Store the IDs of all the open terminal windows. *)
-  set initialOpenedWindows to id of every window
-
-  (* Open the custom theme so it gets added to the list of available terminal themes
-     (note: this will open two additional terminal windows). *)
-  do shell script "open '$SCRIPT_DIR/init/" & themeName & ".terminal'"
-
-  (* Wait a little bit to ensure that the custom theme is added. *)
-  delay 1
-
-  (* Set the custom theme as the default terminal theme. *)
-  set default settings to settings set themeName
-
-  (* Get the IDs of all the currently opened terminal windows. *)
-  set allOpenedWindows to id of every window
-
-  repeat with windowID in allOpenedWindows
-
-    (* Close the additional windows that were opened
-       in order to add the custom theme to the list of terminal themes. *)
-    if initialOpenedWindows does not contain windowID then
-      close (every window whose id is windowID)
-
-    (* Change the theme for the initial opened terminal windows
-       and remove the need to close them
-       in order for the custom theme to be applied. *)
-    else
-      set current settings of tabs of (every window whose id is windowID) to settings set themeName
-    end if
-
-  end repeat
-
-end tell
-
-EOD
-
-  # Only use UTF-8 in Terminal.app
-  defaults write -app "Terminal" StringEncodings -array 4
-
-  # Enable Secure Keyboard Entry in Terminal.app
-  # See: https://security.stackexchange.com/a/47786/8918
-  defaults write -app "Terminal" SecureKeyboardEntry -bool "true"
-
-  ###############################################################################
-  # Time Machine                                                                #
-  ###############################################################################
-
-  # Prevent Time Machine from prompting to use new hard drives as backup volume
-  defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool "true"
 
   ###############################################################################
   # Activity Monitor                                                            #
@@ -677,29 +404,6 @@ EOD
   defaults write -app "Disk Utility" DUDebugMenuEnabled -bool "true"
   defaults write -app "Disk Utility" advanced-image-options -bool "true"
 
-  ###############################################################################
-  # Mac App Store                                                               #
-  ###############################################################################
-
-  # Enable the automatic update check
-  defaults write com.apple.SoftwareUpdate AutomaticCheckEnabled -bool "true"
-
-  # Download newly available updates in background
-  defaults write com.apple.SoftwareUpdate AutomaticDownload -int 1
-
-  # Check for software updates daily, not just once per week
-  defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
-
-  # Install System data files & security updates
-  defaults write com.apple.SoftwareUpdate CriticalUpdateInstall -int 1
-
-  # Automatically download apps purchased on other Macs
-  defaults write com.apple.SoftwareUpdate ConfigDataInstall -int 1
-
-  # Turn on app auto-update
-  defaults write com.apple.commerce AutoUpdate -bool "true"
-
-  # Allow the App Store to reboot machine on macOS updates
   defaults write com.apple.commerce AutoUpdateRestartRequired -bool "true"
 
   ###############################################################################
@@ -739,7 +443,6 @@ EOD
     "Terminal"
     "TextEdit"
     "Time Machine"
-    "wezterm-gui"
   ); do
     killall "$app" &>/dev/null
   done
