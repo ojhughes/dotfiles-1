@@ -12,13 +12,10 @@ _evalcache starship init zsh
 # Initialize tools (with lazyload if possible)
 (( $+commands[atuin] )) && _evalcache atuin init zsh
 (( $+commands[mise] )) && _evalcache mise activate zsh
-(( $+commands[orbctl] )) && [[ -n $HOME/.orbstack/shell/init.zsh ]] && source $HOME/.orbstack/shell/init.zsh
-(( $+commands[rustup-init] )) && [[ -n $HOME/.cargo/env ]] && source $HOME/.cargo/env
+# (( $+commands[orbctl] )) && [[ -n $HOME/.orbstack/shell/init.zsh ]] && source $HOME/.orbstack/shell/init.zsh
+# (( $+commands[rustup-init] )) && [[ -n $HOME/.cargo/env ]] && source $HOME/.cargo/env
 
 # Load library files
-for libraryFile ($ZSH_CUSTOM/interactive/*.zsh); do
-  source $libraryFile
-done
 
 # Initialise the auto-completion system to consume extra completions (for bash/zsh).
 autoload -Uz bashcompinit
@@ -30,6 +27,9 @@ else
   bashcompinit -C
 	compinit -C
 fi
+for libraryFile ($ZSH_CUSTOM/interactive/*.zsh); do
+  source $libraryFile
+done
 
 # Load completion files
 typeset -U FPATH fpath

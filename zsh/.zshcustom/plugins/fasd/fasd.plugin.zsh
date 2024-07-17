@@ -3,7 +3,7 @@ if (( ! ${+commands[fasd]} )); then
   return
 fi
 
-fasd_cache="${ZSH_CACHE_DIR}/fasd-init-cache"
+fasd_cache="${HOME}/fasd-init-cache"
 if [[ "$commands[fasd]" -nt "$fasd_cache" || ! -s "$fasd_cache" ]]; then
   fasd --init posix-alias zsh-hook zsh-ccomp zsh-ccomp-install \
     zsh-wcomp zsh-wcomp-install >| "$fasd_cache"
