@@ -1,5 +1,7 @@
 # Git version checking
 autoload -Uz is-at-least
+autoload -Uz compinit
+compinit
 git_version="${${(As: :)$(git version 2>/dev/null)}[3]}"
 
 #
