@@ -28,6 +28,11 @@ fi
 
 # Load plugins
 source $ZSH_CUSTOM/plugins/evalcache/evalcache.plugin.zsh
+source $ZSH_CUSTOM/plugins/kubectl/kubectl.plugin.zsh
+source $ZSH_CUSTOM/plugins/fasd/fasd.plugin.zsh
+source $ZSH_CUSTOM/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+source $ZSH_CUSTOM/plugins/emacs/emacs.plugin.zsh
+source $ZSH_CUSTOM/plugins/git/git.plugin.zsh
 
 # Enable Homebrew
 [[ -n $BREW_LOCATION ]] && _evalcache "$BREW_LOCATION" shellenv

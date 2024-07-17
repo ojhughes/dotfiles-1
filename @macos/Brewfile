@@ -238,7 +238,6 @@ brew "railwaycat/emacsmacport/emacs-mac", args: ["with-librsvg", "with-mac-metal
 # Binaries and Drivers
 cask "google-cloud-sdk"
 cask "mitmproxy" # Python
-cask "zulu17"
 
 # Browsers
 cask "microsoft-edge"
@@ -278,8 +277,6 @@ cask "calibre"
 cask "chatgpt"
 cask "cursor"
 cask "dash"
-cask "docker"
-cask "firefox"
 cask "flycut"
 cask "font-hack-nerd-font"
 cask "google-cloud-sdk"

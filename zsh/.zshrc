@@ -71,6 +71,7 @@ alias ak='goak'
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
+export GOROOT=$(brew --prefix go)/libexec
 export PATH="/opt/homebrew/opt/make/libexec/gnubin:/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -83,8 +84,8 @@ export PATH="/opt/homebrew/opt/make/libexec/gnubin:/opt/homebrew/opt/coreutils/l
 setopt +o nomatch
 source ~/.aliases
 source ~/.ak_aliases
-source <(kubectl completion zsh)
+# source <(kubectl completion zsh)
 source /opt/homebrew/opt/asdf/libexec/asdf.sh
 eval `dircolors ~/.dircolors`
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-eval "$(zoxide init zsh)"
+# eval "$(zoxide init zsh)"
