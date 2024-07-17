@@ -67,7 +67,7 @@ export GOPATH=$HOME/go
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 alias ak='goak'
-
+export HOMEBREW_NO_AUTO_UPDATE=1
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
