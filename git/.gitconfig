@@ -65,7 +65,6 @@
 [commit]
 
 	# Sign commits with GPG (i.e. `Verified` commits on GitHub)
- 	gpgSign = true
 
 [credential]
 
@@ -131,7 +130,6 @@
 [tag]
 
 	# Sign tags with GPG (i.e. `Verified` tags on GitHub)
-	gpgSign = true
 
 [url "https://github.com/"]
 

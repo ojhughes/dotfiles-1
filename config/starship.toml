@@ -168,6 +168,7 @@ format = '\[[$symbol($version)]($style)\]'
 [ruby]
 format = '\[[$symbol($version)]($style)\]'
 symbol = ' '
+disabled = true
 
 [rust]
 format = '\[[$symbol($version)]($style)\]'
