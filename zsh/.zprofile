@@ -32,9 +32,6 @@ source $ZSH_CUSTOM/plugins/evalcache/evalcache.plugin.zsh
 # Enable Homebrew
 [[ -n $BREW_LOCATION ]] && _evalcache "$BREW_LOCATION" shellenv
 
-# Enable shims from `mise`
-(( $+commands[mise] )) && _evalcache mise activate zsh --shims
-
 # Load library files
 for libraryFile ($ZSH_CUSTOM/*.zsh); do
   source $libraryFile
