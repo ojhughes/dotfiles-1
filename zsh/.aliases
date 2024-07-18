@@ -27,6 +27,12 @@ alias mkopup='fastmake c/neo4j-operator && ENVIRONMENT=ohughes environments comp
 # Advanced Aliases.
 # Use with caution
 #
+alias ls='ls --color=auto'
+alias dir='dir --color=auto'
+alias vdir='vdir --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
 
 # ls, the common ones I use a lot shortened for rapid fire usage
 alias l='ls -lFh'     #size,show type,human readable

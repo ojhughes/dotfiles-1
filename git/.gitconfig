@@ -74,11 +74,13 @@
 [credential "https://github.com"]
 
 	# Use gh CLI as default credential helper for GitHub
+	helper = 
 	helper = !/opt/homebrew/bin/gh auth git-credential
 
 [credential "https://gist.github.com"]
 
 	# Use gh CLI as default credential helper for GitHub
+	helper = 
 	helper = !/opt/homebrew/bin/gh auth git-credential
 
 [diff]

@@ -33,6 +33,7 @@ source $ZSH_CUSTOM/plugins/fasd/fasd.plugin.zsh
 source $ZSH_CUSTOM/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
 source $ZSH_CUSTOM/plugins/emacs/emacs.plugin.zsh
 source $ZSH_CUSTOM/plugins/git/git.plugin.zsh
+source $ZSH_CUSTOM/plugins/dircolors-neutral/dircolors-neutral.plugin.zsh
 
 # Enable Homebrew
 [[ -n $BREW_LOCATION ]] && _evalcache "$BREW_LOCATION" shellenv
@@ -41,3 +42,7 @@ source $ZSH_CUSTOM/plugins/git/git.plugin.zsh
 for libraryFile ($ZSH_CUSTOM/*.zsh); do
   source $libraryFile
 done
+
+# Added by OrbStack: command-line tools and integration
+# Comment this line if you don't want it to be added again.
+source ~/.orbstack/shell/init.zsh 2>/dev/null || :

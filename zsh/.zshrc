@@ -86,6 +86,6 @@ source ~/.aliases
 source ~/.ak_aliases
 # source <(kubectl completion zsh)
 source /opt/homebrew/opt/asdf/libexec/asdf.sh
-eval `dircolors ~/.dircolors`
+# eval `dircolors ~/.dircolors`
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 # eval "$(zoxide init zsh)"
