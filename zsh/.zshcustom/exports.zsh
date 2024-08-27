@@ -32,9 +32,9 @@ path+="/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
 
 # Make VSCode the default editor for commands that support the $EDITOR variable
-export EDITOR="code -w"
-export KUBE_EDITOR="code -w"
-export K9S_EDITOR="code -w"
+export EDITOR="te"
+export KUBE_EDITOR="te"
+export K9S_EDITOR="te"
 
 
 # Avoid issues with `gpg` (installed via Homebrew)

@@ -43,21 +43,20 @@
                `("w", "Work Note" entry (file "work.org"),
                  (string-join '("* %?")))))
 
-(load (expand-file-name "~/.roswell/helper.el"))
-(setq inferior-lisp-program "ros -Q run")
+;; (load (expand-file-name "~/.roswell/helper.el"))
+;; (setq inferior-lisp-program "ros -Q run")
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
 (define-key key-translation-map (kbd "M-3") (kbd "#"))
-(setenv "PATH" (concat (getenv "PATH") ":/Users/ohughes/.ghcup/bin"))
-(setq exec-path (append exec-path '("/Users/ohughes/.ghcup/bin")))
-(setenv "PATH" (concat (getenv "PATH") ":/Users/ohughes/.cabal/bin"))
-(setq exec-path (append exec-path '("/Users/ohughes/.cabal/bin")))
 (setenv "PATH" (concat (getenv "PATH") ":/Users/ohughes/go/bin"))
 (setq exec-path (append exec-path '("/Users/ohughes/go/bin")))
 ;; (setenv "GOROOT" "/opt/homebrew/opt/go@1.19/libexec")
 (setq auth-sources '("~/.authinfo"))
-
+(after! persp-mode
+  (setq persp-emacsclient-init-frame-behaviour-override
+        `(+workspace-current-name))
+  )
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;

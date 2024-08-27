@@ -33,12 +33,6 @@
   # Initialise the `brew bundle` command
   brew tap homebrew/bundle
 
-  # Selectively install dependencies based on personal computer or not
-  prompt "Are you setting up a personal computer?"
-
-  # Install all dependencies from `Brewfile`
-  brew bundle --file=$SCRIPT_DIR/Brewfile --no-lock
-
   # Install all dependencies from `Brewfile.personal` if specified
   if (( $PROMPT_PROCEED == 0 )); then
     brew bundle --file=$SCRIPT_DIR/Brewfile.personal --no-lock

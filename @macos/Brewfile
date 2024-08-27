@@ -47,7 +47,6 @@ brew "sqlmap"
 brew "tealdeer" # Rust
 brew "tree"
 brew "xz"
-brew "yq" # Golang
 brew "zlib"
 brew "zopfli"
 
@@ -246,10 +245,7 @@ cask "microsoft-edge"
 cask "1password"
 cask "1password/tap/1password-cli"
 cask "karabiner-elements"
-cask "linear-linear"
-cask "logi-options-plus"
 cask "mimestream"
-cask "morgen"
 cask "mullvadvpn"
 
 # IM

@@ -10,6 +10,8 @@ gnb() {
 	git branch --no-track ojhughes/$1 origin/master
 	git switch ojhughes/$1
 }
+alias ..='cd ..'
+alias ...='cd ../..'
 
 alias kge="k get ev --sort-by='.lastTimestamp'"
 alias ake="ak get ev --sort-by='.lastTimestamp'"
@@ -27,7 +29,7 @@ alias mkopup='fastmake c/neo4j-operator && ENVIRONMENT=ohughes environments comp
 # Advanced Aliases.
 # Use with caution
 #
-alias ls='ls --color=auto'
+alias ls='ls -a --color=auto'
 alias dir='dir --color=auto'
 alias vdir='vdir --color=auto'
 alias grep='grep --color=auto'

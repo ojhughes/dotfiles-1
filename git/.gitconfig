@@ -62,26 +62,7 @@
 	changed = green
 	untracked = cyan
 
-[commit]
 
-	# Sign commits with GPG (i.e. `Verified` commits on GitHub)
-
-[credential]
-
-	# Use macOS Keychain as default credential helper
-	helper = osxkeychain
-
-[credential "https://github.com"]
-
-	# Use gh CLI as default credential helper for GitHub
-	helper = 
-	helper = !/opt/homebrew/bin/gh auth git-credential
-
-[credential "https://gist.github.com"]
-
-	# Use gh CLI as default credential helper for GitHub
-	helper = 
-	helper = !/opt/homebrew/bin/gh auth git-credential
 
 [diff]
 
@@ -128,15 +109,9 @@
 
 	# Enable `Reuse Recorded Resolution`
 	enabled = true
-
-[tag]
-
-	# Sign tags with GPG (i.e. `Verified` tags on GitHub)
-
-[url "https://github.com/"]
-
-	insteadOf = git@github.com:
-
-[url "https://"]
-
-	insteadOf = git://
+[credential "https://github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
